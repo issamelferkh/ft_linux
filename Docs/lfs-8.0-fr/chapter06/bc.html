@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.34.&nbsp;Bc-1.06.95
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bash.html" title="Bash-4.4">Précédent</a>
+          <p>
+            Bash-4.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title=
+          "Libtool-2.4.6">Suivant</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-bc" name="ch-system-bc"></a>6.34. Bc-1.06.95
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Bc contient un langage de traitement des nombres à la
+          précision de votre choix.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">3.6 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          6.34.1. Installation de Bc
+        </h2>
+        <p>
+          Tout d'abord, corrigez de petites fuites de mémoire du code&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../bc-1.06.95-memory_leak-1.patch</kbd></pre>
+        <p>
+          Prépare la compilation de Bc&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr           \
+            --with-readline         \
+            --mandir=/usr/share/man \
+            --infodir=/usr/share/info</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification des options de configure
+            :</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-readline</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Cette option dit à Bc d'utiliser la bibliothèque <code class=
+                "filename">readline</code> installée sur le système et non sa
+                propre version de readline.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Pour tester bc, lancez les commandes ci-dessous. Il y a beaucoup de
+          sortie, donc il se peut que vous vouliez la rediriger vers un
+          fichier. Un très faible pourcentage de tests (10 sur 12,144)
+          indiquera une erreur d'arrondis au dernier chiffre.
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">echo "quit" | ./bc/bc -l Test/checklib.b</kbd></pre>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          <a id="contents-bc" name="contents-bc"></a>6.34.2. Contenu de Bc
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Programmes installés:</strong>
+              <span class="segbody">bc et dc</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Descriptions courtes
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bc" name="bc"></a><span class="term"><span class=
+                    "command"><strong>bc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    est une calculatrice en ligne de commandes
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dc" name="dc"></a><span class="term"><span class=
+                    "command"><strong>dc</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    est une calculatrice en ligne de commande en polonais
+                    inversé (reverse-polish)
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bash.html" title="Bash-4.4">Précédent</a>
+          <p>
+            Bash-4.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="libtool.html" title=
+          "Libtool-2.4.6">Suivant</a>
+          <p>
+            Libtool-2.4.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

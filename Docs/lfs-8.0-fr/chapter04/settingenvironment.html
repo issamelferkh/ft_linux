@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.4.&nbsp;Configurer l'environnement
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;4.&nbsp;Dernières préparations
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title=
+          "Ajouter l'utilisateur LFS">Précédent</a>
+          <p>
+            Ajouter l'utilisateur LFS
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title=
+          "À propos des SBU">Suivant</a>
+          <p>
+            À propos des SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "Chapitre&nbsp;4.&nbsp;Dernières préparations">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-tools-settingenviron" name=
+        "ch-tools-settingenviron"></a>4.4. Configurer l'environnement
+      </h1>
+      <p>
+        Configurez un bon environnement de travail en créant deux nouveaux
+        fichiers de démarrage pour le shell <span class=
+        "command"><strong>bash</strong></span>. En étant connecté en tant
+        qu'utilisateur <code class="systemitem">lfs</code>, lancez la
+        commande suivante pour créer un nouveau <code class=
+        "filename">.bash_profile</code>&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; ~/.bash_profile &lt;&lt; "EOF"
+<code class=
+"literal">exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash</code>
+EOF</kbd></pre>
+      <p>
+        Lorsque vous êtes connecté en tant que <code class=
+        "systemitem">lfs</code>, le shell initial est habituellement un shell
+        de <span class="emphasis"><em>login</em></span> qui lit le fichier
+        <code class="filename">/etc/profile</code> de l'hôte (contenant
+        probablement quelques configurations et variables d'environnement) et
+        puis <code class="filename">.bash_profile</code>. La commande
+        <span class="command"><strong>exec env -i.../bin/bash</strong></span>
+        dans le fichier <code class="filename">.bash_profile</code> remplace
+        le shell en cours avec un nouveau ayant un environnement complètement
+        vide sauf pour les variables <code class="envar">HOME</code>,
+        <code class="envar">TERM</code>, et <code class="envar">PS1</code>.
+        Ceci nous assure qu'aucune variable d'environnement non souhaitée et
+        potentiellement dangereuse, provenant du système hôte, ne parvienne
+        dans l'environnement de construction. La technique utilisée ici
+        s'assure de ce but d'environnement propre.
+      </p>
+      <p>
+        La nouvelle instance du shell est un shell <span class=
+        "emphasis"><em>non-login</em></span>, qui ne lit donc pas les
+        fichiers <code class="filename">/etc/profile</code> ou <code class=
+        "filename">.bash_profile</code>, mais plutôt le fichier <code class=
+        "filename">.bashrc</code>. Créez maintenant le fichier <code class=
+        "filename">.bashrc</code>&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; ~/.bashrc &lt;&lt; "EOF"
+<code class="literal">set +h
+umask 022
+LFS=/mnt/lfs
+LC_ALL=POSIX
+LFS_TGT=$(uname -m)-lfs-linux-gnu
+PATH=/tools/bin:/bin:/usr/bin
+export LFS LC_ALL LFS_TGT PATH</code>
+EOF</kbd></pre>
+      <p>
+        La commande <span class="command"><strong>set +h</strong></span>
+        désactive la fonction de hachage de <span class=
+        "command"><strong>bash</strong></span>. D'habitude, le hachage est
+        une fonctionnalité utile—<span class=
+        "command"><strong>bash</strong></span> utilise une table de hachage
+        pour se rappeler le chemin complet des fichiers exécutables pour
+        éviter d'avoir à chercher dans <code class="envar">PATH</code> à
+        chaque fois qu'il doit trouver le même exécutable. Néanmoins, les
+        nouveaux outils devraient être utilisés dès leur installation. En
+        désactivant la fonction de hachage, le shell cherchera en permanence
+        dans <code class="envar">PATH</code> lorsqu'un programme doit être
+        exécuté. Ainsi, le shell trouvera les nouveaux outils compilés dans
+        <code class="filename">$LFS/tools</code> dès qu'ils sont disponibles
+        et sans se rappeler la version précédente du même programme mais dans
+        un autre emplacement.
+      </p>
+      <p>
+        Configurer le masque de création de fichier (umask) à 022 nous assure
+        que les nouveaux fichiers et répertoires créés sont modifiables
+        uniquement par leurs propriétaires mais lisibles et exécutables par
+        tout le monde (en supposant que les modes par défaut sont utilisés
+        par l'appel système <code class="function">open(2)</code> les
+        nouveaux fichiers finiront avec les droits 644 et les répertoires
+        avec ceux 755).
+      </p>
+      <p>
+        La variable <code class="envar">LFS</code> devrait être configurée
+        avec le point de montage choisi.
+      </p>
+      <p>
+        La variable <code class="envar">LC_ALL</code> contrôle la
+        localisation de certains programmes, faisant que leurs messages
+        suivent les conventions d'un pays spécifié. Si vous définissez
+        <code class="envar">LC_ALL</code> à <span class=
+        "quote">«&nbsp;<span class="quote">POSIX</span>&nbsp;»</span> ou
+        <span class="quote">«&nbsp;<span class="quote">C</span>&nbsp;»</span>
+        (les deux étant équivalents) garantit que tout fonctionnera comme
+        prévu dans l'environnement chroot.
+      </p>
+      <p>
+        La variable <code class="envar">LFS_TGT</code> initialise une
+        description de machine compatible mais par défaut lors de la
+        construction de notre compilateur et de notre éditeur de liens
+        croisés et lors de la compilation de notre chaîne d'outils
+        temporaires. Vous trouverez plus d'informations dans <a class="xref"
+        href="../chapter05/toolchaintechnotes.html" title=
+        "5.2.&nbsp;Notes techniques sur la chaîne d'outils">Section&nbsp;5.2,
+        «&nbsp;Notes techniques sur la chaîne d'outils&nbsp;»</a>.
+      </p>
+      <p>
+        En plaçant <code class="filename">/tools/bin</code> au début du
+        <code class="envar">PATH</code> standard, tous les programmes
+        installés dans <a class="xref" href="../chapter05/chapter05.html"
+        title=
+        "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Chapitre
+        5</a> sont récupérés par le shell immédiatement après leur
+        installation. Ceci, combiné avec la désactivation du hachage, limite
+        le risque que d'anciens programmes de l'hôte soient utilisés alors
+        que les mêmes programmes sont disponibles depuis l'environnement du
+        chapitre 5.
+      </p>
+      <p>
+        Enfin, pour avoir un environnement complètement préparé pour la
+        construction des outils temporaires, chargez le profil de
+        l'utilisateur tout juste créé&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">source ~/.bash_profile</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title=
+          "Ajouter l'utilisateur LFS">Précédent</a>
+          <p>
+            Ajouter l'utilisateur LFS
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title=
+          "À propos des SBU">Suivant</a>
+          <p>
+            À propos des SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "Chapitre&nbsp;4.&nbsp;Dernières préparations">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

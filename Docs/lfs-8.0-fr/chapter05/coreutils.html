@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.19.&nbsp;Coreutils-8.26
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;5.&nbsp;Construire un système temporaire
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bzip2.html" title=
+          "Bzip2-1.0.6">Précédent</a>
+          <p>
+            Bzip2-1.0.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="diffutils.html" title=
+          "Diffutils-3.5">Suivant</a>
+          <p>
+            Diffutils-3.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-tools-coreutils" name="ch-tools-coreutils"></a>5.19.
+        Coreutils-8.26
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Coreutils contient des outils pour afficher et configurer
+          les caractéristiques basiques d'un système.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">0.6 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">136 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          5.19.1. Installation de Coreutils
+        </h2>
+        <p>
+          Préparez la compilation de Coreutils&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/tools --enable-install-program=hostname</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification des options de
+            configuration&nbsp;:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><code class=
+              "envar">--enable-install-program=hostname</code></span>
+            </dt>
+            <dd>
+              <p>
+                Ceci fait que le binaire <span class=
+                "command"><strong>hostname</strong></span> sera compilé et
+                installé – ceci est désactivé par défaut mais c'est requis
+                par la suite de tests de Perl.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          La compilation est maintenant terminée. Comme décrit plus tôt,
+          l'exécution de la suite de tests n'est pas obligatoire pour les
+          outils temporaires dans ce chapitre. Pour lancer cependant la suite
+          de tests de Coreutils, faites la commande suivante&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make RUN_EXPENSIVE_TESTS=yes check</kbd></pre>
+        <p>
+          Le paramètre <em class=
+          "parameter"><code>RUN_EXPENSIVE_TESTS=yes</code></em> indique à la
+          suite de tests de lancer quelques tests supplémentaires, considérés
+          relativement coûteux (en termes de puissance CPU et d'utilisation
+          mémoire) mais habituellement sans problème sous Linux.
+        </p>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <p>
+          Les détails sur ce paquet sont disponibles dans <a class="xref"
+          href="../chapter06/coreutils.html#contents-coreutils" title=
+          "6.50.2.&nbsp;Contenu de Coreutils">Section&nbsp;6.50.2,
+          «&nbsp;Contenu de Coreutils.&nbsp;»</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="bzip2.html" title=
+          "Bzip2-1.0.6">Précédent</a>
+          <p>
+            Bzip2-1.0.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="diffutils.html" title=
+          "Diffutils-3.5">Suivant</a>
+          <p>
+            Diffutils-3.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

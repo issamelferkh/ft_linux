@@ -1,0 +1,833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      Linux From Scratch
+    </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="stylesheets/lfs-print.css" type="text/css"
+    media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div xml:lang="fr" class="book" lang="fr">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title">
+              <a id="idm140342112859296" name="idm140342112859296"></a>Linux
+              From Scratch
+            </h1>
+          </div>
+          <div>
+            <h2 class="subtitle">
+              Version 8.0
+            </h2>
+          </div>
+          <div>
+            <div class="authorgroup">
+              <div class="author">
+                <h3 class="author">
+                  <span class="firstname">Créé par Gerard</span> <span class=
+                  "surname">Beekmans</span>
+                </h3>
+              </div>
+              <div class="author">
+                <h3 class="author">
+                  <span class="firstname">Rédacteur en chef&nbsp;:
+                  Bruce</span> <span class="surname">Dubbs</span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="copyright">
+              <a href="legalnotice.html">Copyright</a> © 1999-2017 Gerard
+              Beekmans
+            </p>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div class="toc">
+        <h3>
+          Table des matières
+        </h3>
+        <ul>
+          <li class="preface">
+            <h4>
+              Préface
+            </h4>
+            <ul>
+              <li class="sect1">
+                <a href="prologue/foreword.html">Avant-propos</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/audience.html">Public visé</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/architecture.html">Architectures cibles de
+                LFS</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/standards.html">LFS et les standards</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/package-choices.html">Raison de la présence
+                des paquets dans le livre</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/prerequisites.html">Prérequis</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/typography.html">Typographie</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/organization.html">Structure</a>
+              </li>
+              <li class="sect1">
+                <a href="prologue/errata.html">Errata</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part">
+            <h3>
+              I. Introduction
+            </h3>
+            <ul>
+              <li class="chapter">
+                <h4>
+                  1. Introduction
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter01/how.html">Comment construire un
+                    système LFS</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter01/whatsnew.html">Quoi de neuf depuis la
+                    dernière version</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter01/changelog.html">Historique des
+                    modifications</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter01/resources.html">Ressources</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter01/askforhelp.html">Aide</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="part">
+            <h3>
+              II. Préparation à la construction
+            </h3>
+            <ul>
+              <li class="chapter">
+                <h4>
+                  2. Préparation du système hôte
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter02/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/hostreqs.html">Prérequis du système
+                    hôte</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/stages.html">Les étapes de la
+                    construction de LFS</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/creatingpartition.html">Créer une
+                    nouvelle partition</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/creatingfilesystem.html">Créer un
+                    système de fichiers sur la partition</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/aboutlfs.html">Définir la variable
+                    $LFS</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter02/mounting.html">Monter la nouvelle
+                    partition</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  3. Paquets et correctifs
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter03/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter03/packages.html">Tous les paquets</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter03/patches.html">Correctifs requis</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  4. Dernières préparations
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter04/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter04/creatingtoolsdir.html">Créer le
+                    répertoire $LFS/tools</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter04/addinguser.html">Ajouter l'utilisateur
+                    LFS</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter04/settingenvironment.html">Configurer
+                    l'environnement</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter04/aboutsbus.html">À propos des SBU</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter04/abouttestsuites.html">À propos des
+                    suites de tests</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  5. Construire un système temporaire
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter05/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/toolchaintechnotes.html">Notes
+                    techniques sur la chaîne d'outils</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/generalinstructions.html">Instructions
+                    générales de compilation</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/binutils-pass1.html">Binutils-2.27 -
+                    Passe 1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/gcc-pass1.html">GCC-6.3.0 - Passe
+                    1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/linux-headers.html">Linux-4.9.9 API
+                    Headers</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/glibc.html">Glibc-2.25</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "chapter05/gcc-libstdc++.html">Libstdc++-6.3.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/binutils-pass2.html">Binutils-2.27 -
+                    Passe 2</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/gcc-pass2.html">GCC-6.3.0 - Passe
+                    2</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/tcl.html">Tcl-core-8.6.6</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/expect.html">Expect-5.45</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/dejagnu.html">DejaGNU-1.6</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/check.html">Check-0.11.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/ncurses.html">Ncurses-6.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/bash.html">Bash-4.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/bison.html">Bison-3.0.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/bzip2.html">Bzip2-1.0.6</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/coreutils.html">Coreutils-8.26</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/diffutils.html">Diffutils-3.5</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/file.html">File-5.30</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/findutils.html">Findutils-4.6.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/gawk.html">Gawk-4.1.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/gettext.html">Gettext-0.19.8.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/grep.html">Grep-3.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/gzip.html">Gzip-1.8</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/m4.html">M4-1.4.18</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/make.html">Make-4.2.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/patch.html">Patch-2.7.5</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/perl.html">Perl-5.24.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/sed.html">Sed-4.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/tar.html">Tar-1.29</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/texinfo.html">Texinfo-6.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/util-linux.html">Util-linux-2.29.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/xz.html">Xz-5.2.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/stripping.html">Supprimer les symboles
+                    des fichiers objets</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter05/changingowner.html">Changer de
+                    propriétaire</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="part">
+            <h3>
+              III. Construction du système LFS
+            </h3>
+            <ul>
+              <li class="chapter">
+                <h4>
+                  6. Installer les logiciels du système de base
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter06/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/kernfs.html">Préparer les systèmes de
+                    fichiers virtuels du noyau</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/pkgmgt.html">Gestion de paquets</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/chroot.html">Entrer dans
+                    l'environnement chroot</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/creatingdirs.html">Créer les
+                    répertoires</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/createfiles.html">Créer les fichiers
+                    et les liens symboliques essentiels</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/linux-headers.html">Linux-4.9.9 API
+                    Headers</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/man-pages.html">Man-pages-4.09</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/glibc.html">Glibc-2.25</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/adjusting.html">Ajustement de la
+                    chaîne d'outils</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/zlib.html">Zlib-1.2.11</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/file.html">File-5.30</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/binutils.html">Binutils-2.27</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gmp.html">GMP-6.1.2</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/mpfr.html">MPFR-3.1.5</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/mpc.html">MPC-1.0.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gcc.html">GCC-6.3.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/bzip2.html">Bzip2-1.0.6</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/pkg-config.html">Pkg-config-0.29.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/ncurses.html">Ncurses-6.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/attr.html">Attr-2.4.47</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/acl.html">Acl-2.2.52</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/libcap.html">Libcap-2.25</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/sed.html">Sed-4.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/shadow.html">Shadow-4.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/psmisc.html">Psmisc-22.21</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/iana-etc.html">Iana-Etc-2.30</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/m4.html">M4-1.4.18</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/bison.html">Bison-3.0.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/flex.html">Flex-2.6.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/grep.html">Grep-3.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/readline.html">Readline-7.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/bash.html">Bash-4.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/bc.html">Bc-1.06.95</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/libtool.html">Libtool-2.4.6</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gdbm.html">GDBM-1.12</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gperf.html">Gperf-3.0.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/expat.html">Expat-2.2.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/inetutils.html">Inetutils-1.9.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/perl.html">Perl-5.24.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/xml-parser.html">XML::Parser-2.44</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/intltool.html">Intltool-0.51.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/autoconf.html">Autoconf-2.69</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/automake.html">Automake-1.15</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/xz.html">Xz-5.2.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/kmod.html">Kmod-23</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gettext.html">Gettext-0.19.8.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/procps-ng.html">Procps-3.3.12</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/e2fsprogs.html">E2fsprogs-1.43.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/coreutils.html">Coreutils-8.26</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/diffutils.html">Diffutils-3.5</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gawk.html">Gawk-4.1.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/findutils.html">Findutils-4.6.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/groff.html">Groff-1.22.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/grub.html">GRUB-2.02~beta3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/less.html">Less-481</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/gzip.html">Gzip-1.8</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/iproute2.html">IPRoute2-4.9.0</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/kbd.html">Kbd-2.0.4</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "chapter06/libpipeline.html">Libpipeline-1.4.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/make.html">Make-4.2.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/patch.html">Patch-2.7.5</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/sysklogd.html">Sysklogd-1.5.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/sysvinit.html">Sysvinit-2.88dsf</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/eudev.html">Eudev-3.2.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/util-linux.html">Util-linux-2.29.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/man-db.html">Man-DB-2.7.6.1</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/tar.html">Tar-1.29</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/texinfo.html">Texinfo-6.3</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/vim.html">Vim-8.0.069</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/aboutdebug.html">À propos des symboles
+                    de débogage</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/strippingagain.html">Supprimer de
+                    nouveau les symboles des fichiers objets</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter06/revisedchroot.html">Nettoyer</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  7. Configuration du système
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter07/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "chapter07/bootscripts.html">LFS-Bootscripts-20150222</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/udev.html">Manipulation des
+                    périphériques et modules</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/symlinks.html">Gérer les
+                    périphériques</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/network.html">Configuration générale
+                    du réseau</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/usage.html">Utiliser et configurer les
+                    scripts de démarrage de System V</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/profile.html">Fichiers de démarrage du
+                    shell Bash</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/inputrc.html">Créer le fichier
+                    /etc/inputrc</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter07/etcshells.html">Créaction du fichier
+                    /etc/shells</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  8. Rendre le système LFS amorçable
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter08/introduction.html">Introduction</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter08/fstab.html">Créer le fichier
+                    /etc/fstab</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter08/kernel.html">Linux-4.9.9</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter08/grub.html">Utiliser GRUB pour
+                    paramétrer le processus de démarrage</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="chapter">
+                <h4>
+                  9. Fin
+                </h4>
+                <ul>
+                  <li class="sect1">
+                    <a href="chapter09/theend.html">Fin</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter09/getcounted.html">Enregistrez-vous</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter09/reboot.html">Redémarrer le système</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="chapter09/whatnow.html">Et maintenant&nbsp;?</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="part">
+            <h3>
+              IV. Annexes
+            </h3>
+            <ul>
+              <li class="appendix">
+                <a href="appendices/acronymlist.html">A. Acronymes et
+                Termes</a>
+              </li>
+              <li class="appendix">
+                <a href="appendices/acknowledgments.html">B.
+                Remerciements</a>
+              </li>
+              <li class="appendix">
+                <a href="appendices/dependencies.html">C. Dépendances</a>
+              </li>
+              <li class="appendix">
+                <a href="scripts/scripts.html">D. Scripts de démarrage et de
+                sysconfig version-20150222</a>
+                <ul>
+                  <li class="sect1">
+                    <a href="scripts/apds01.html">/etc/rc.d/init.d/rc</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds02.html">/lib/lsb/init-functions</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds03.html">/etc/rc.d/init.d/mountvirtfs</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds04.html">/etc/rc.d/init.d/modules</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds05.html">/etc/rc.d/init.d/udev</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds06.html">/etc/rc.d/init.d/swap</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds07.html">/etc/rc.d/init.d/setclock</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds08.html">/etc/rc.d/init.d/checkfs</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds09.html">/etc/rc.d/init.d/mountfs</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds10.html">/etc/rc.d/init.d/udev_retry</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds11.html">/etc/rc.d/init.d/cleanfs</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds12.html">/etc/rc.d/init.d/console</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds13.html">/etc/rc.d/init.d/localnet</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds14.html">/etc/rc.d/init.d/sysctl</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds15.html">/etc/rc.d/init.d/sysklogd</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds16.html">/etc/rc.d/init.d/network</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds17.html">/etc/rc.d/init.d/sendsignals</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds18.html">/etc/rc.d/init.d/reboot</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds19.html">/etc/rc.d/init.d/halt</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds20.html">/etc/rc.d/init.d/template</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds21.html">/etc/sysconfig/modules</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds22.html">/etc/sysconfig/createfiles</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds23.html">/etc/sysconfig/udev-retry</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds24.html">/sbin/ifup</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="scripts/apds25.html">/sbin/ifdown</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds26.html">/lib/services/ipv4-static</a>
+                  </li>
+                  <li class="sect1">
+                    <a href=
+                    "scripts/apds27.html">/lib/services/ipv4-static-route</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="appendix">
+                <a href="scripts/eudev-rules.html">E. Règles de configuration
+                d'Udev</a>
+                <ul>
+                  <li class="sect1">
+                    <a href="scripts/apes01.html">55-lfs.rules</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="appendix">
+                <a href="appendices/licenses.html">F. Licences LFS</a>
+                <ul>
+                  <li class="sect1">
+                    <a href="appendices/creat-comm.html">Creative Commons
+                    License</a>
+                  </li>
+                  <li class="sect1">
+                    <a href="appendices/mit.html">The MIT License</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="index">
+            <h3>
+              <a href="longindex.html">Index</a>
+            </h3>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="next">
+          <a accesskey="n" href="prologue/preface.html" title=
+          "Préface">Suivant</a>
+          <p>
+            Préface
+          </p>
+        </li>
+        <li class="up">.
+        </li>
+        <li class="home">.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.10.&nbsp;GCC-6.3.0 - Passe 2
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;5.&nbsp;Construire un système temporaire
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass2.html" title=
+          "Binutils-2.27 - Passe 2">Précédent</a>
+          <p>
+            Binutils-2.27 - Passe 2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tcl.html" title="Tcl-core-8.6.6">Suivant</a>
+          <p>
+            Tcl-core-8.6.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-tools-gcc-pass2" name="ch-tools-gcc-pass2"></a>5.10.
+        GCC-6.3.0 - Passe 2
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet GCC contient la collection de compilateurs GNU, qui
+          inclut les compilateurs C et C++.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">11 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">2.9 Go</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          5.10.1. Installation de GCC
+        </h2>
+        <p>
+          Notre première construction de GCC a installé deux en-têtes
+          internes au système. En principe, l'une d'entre elles, <code class=
+          "filename">limits.h</code> inclura l'en-tête <code class=
+          "filename">limits.h</code> du système correspondante dans ce cas,
+          <code class="filename">/tools/include/limits.h</code>. Cependant,
+          au moment de la première construction de gcc, <code class=
+          "filename">/tools/include/limits.h</code> n'existait pas, donc
+          l'en-tête interne qu'a installée GCC est un fichier partiel, à
+          moitié-rempli et il n'inclut pas les fonctions étendues de
+          l'en-tête du système. Ceci s'adaptait à la construction de la libc
+          temporaire mais la construction de GCC exige maintenant l'en-tête
+          interne complète. Créez une version complète de l'en-tête interne
+          en utilisant une commande identique à ce que fait le système de
+          construction de GCC en temps normal&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cat gcc/limitx.h gcc/glimits.h gcc/limity.h &gt;  `dirname \
+  $($LFS_TGT-gcc -print-libgcc-file-name)`/include-fixed/limits.h</kbd></pre>
+        <p>
+          Une fois encore, modifiez l'emplacement de l'éditeur de liens
+          dynamique par défaut de GCC pour utiliser celui installé dans
+          <code class="filename">/tools</code>.
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">for file in gcc/config/{linux,i386/linux{,64}}.h
+do
+  cp -uv $file{,.orig}
+  sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+      -e 's@/usr@/tools@g' $file.orig &gt; $file
+  echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' &gt;&gt; $file
+  touch $file.orig
+done</kbd></pre>
+        <p>
+          Si vous construisez sur x86_64, changez le nom de répertoire par
+          défaut pour les bibliothèques 64 bits en <span class=
+          "quote">«&nbsp;<span class="quote">lib</span>&nbsp;»</span>&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">case $(uname -m) in
+  x86_64)
+    sed -e '/m64=/s/lib64/lib/' \
+        -i.orig gcc/config/i386/t-linux64
+  ;;
+esac</kbd></pre>
+        <p>
+          Comme dans la première construction de GCC, il a besoin de GMP, de
+          MPFR et MPC. Déballez les archives tar et déplacez-les dans les
+          répertoires nommés comme il le faut&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">tar -xf ../mpfr-3.1.5.tar.xz
+mv -v mpfr-3.1.5 mpfr
+tar -xf ../gmp-6.1.2.tar.xz
+mv -v gmp-6.1.2 gmp
+tar -xf ../mpc-1.0.3.tar.gz
+mv -v mpc-1.0.3 mpc</kbd></pre>
+        <p>
+          Créez un répertoire de construction séparé&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir -v build
+cd       build</kbd></pre>
+        <p>
+          Avant de commencer la construction de GCC, rappelez-vous de
+          désinitialiser toute variable d'environnement surchargeant les
+          options d'optimisation par défaut.
+        </p>
+        <p>
+          Maintenant, préparez la compilation de GCC&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">CC=$LFS_TGT-gcc                                    \
+CXX=$LFS_TGT-g++                                   \
+AR=$LFS_TGT-ar                                     \
+RANLIB=$LFS_TGT-ranlib                             \
+../configure                                       \
+    --prefix=/tools                                \
+    --with-local-prefix=/tools                     \
+    --with-native-system-header-dir=/tools/include \
+    --enable-languages=c,c++                       \
+    --disable-libstdcxx-pch                        \
+    --disable-multilib                             \
+    --disable-bootstrap                            \
+    --disable-libgomp</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification des nouvelles options de
+            configure&nbsp;:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-languages=c,c++</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Cette option garantit que les compilateurs C et C++ seront
+                construits.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-libstdcxx-pch</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Ce commutateur empêche la construction de l'en-tête
+                pré-compilé (PCH) de <code class="filename">libstdc++</code>.
+                Il prend beaucoup d'espace et nous n'en avons aucune utilité.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-bootstrap</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Pour les constructions natives de GCC, on a par défaut une
+                compilation "bootstrap". Elle ne fait pas que compiler GCC,
+                mais elle le compile plusieurs fois. Elle utilise les
+                programmes compilés dans une première étape pour se compiler
+                une seconde fois, puis une troisième fois à nouveau. Les
+                deuxième et troisième passages sont comparés pour garantir
+                qu'elle peut se reproduire facilement. Cela implique aussi
+                qu'elle a été compilée correctement. Néanmoins, la méthode de
+                compilation LFS devrait fournir un compilateur solide sans
+                qu'il soit nécessaire de bootstraper chaque fois.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          En touche finale, créez un lien symbolique. Beaucoup de programmes
+          et de scripts lancent <span class=
+          "command"><strong>cc</strong></span> au lieu de <span class=
+          "command"><strong>gcc</strong></span>, qui est utilisé pour
+          conserver des programmes génériques, utilisables donc sur n'importe
+          quel type de système où le compilateur C n'est pas toujours
+          installé. L'exécution de <span class=
+          "command"><strong>cc</strong></span> laisse l'administrateur du
+          système décider quel compilateur C installer&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">ln -sv gcc /tools/bin/cc</kbd></pre>
+        <div class="admon caution">
+          <img alt="[Attention]" src="../images/caution.png" />
+          <h3>
+            Attention
+          </h3>
+          <p>
+            À ce stade, il est impératif de s'arrêter et de s'assurer que les
+            fonctions de base (compilation et édition de liens) du nouvel
+            ensemble d'outils fonctionnent comme prévu. Pour effectuer un
+            test de propreté, lancez les commandes suivantes&nbsp;:
+          </p>
+          <pre class="userinput"><kbd class=
+          "command">echo 'int main(){}' &gt; dummy.c
+cc dummy.c
+readelf -l a.out | grep ': /tools'</kbd></pre>
+          <p>
+            Si tout fonctionne correctement, il ne devrait pas y avoir
+            d'erreurs et la sortie de la dernière commande aura la
+            forme&nbsp;:
+          </p>
+          <pre class="screen"><code class=
+          "computeroutput">[Requesting program interpreter: /tools/lib/ld-linux.so.2]</code></pre>
+          <p>
+            Remarquez que <code class="filename">/tools/lib</code> ou
+            <code class="filename">/tools/lib64</code> pour les machines 64
+            bits apparaît comme préfixe de l'éditeur de liens dynamiques.
+          </p>
+          <p>
+            Si l'affichage diffère ou s'il n'y a aucun affichage, alors
+            quelque chose ne se passe pas bien. Enquêtez et tracez vos étapes
+            pour trouver où se cache le problème et comment le corriger. Ce
+            problème doit être corrigé avant de continuer. Tout d'abord,
+            relancez la vérification de propreté en utilisant <span class=
+            "command"><strong>gcc</strong></span> au lieu de <span class=
+            "command"><strong>cc</strong></span>. Si cela fonctionne, le lien
+            symbolique <code class="filename">/tools/bin/cc</code> est
+            manquant. Installez le lien symbolique comme indiqué ci-dessus.
+            Ensuite, assurez-vous que le <code class="envar">PATH</code> est
+            correct. Ceci se vérifie en lançant <span class=
+            "command"><strong>echo $PATH</strong></span> et en vérifiant que
+            <code class="filename">/tools/bin</code> est en tête de la liste.
+            Si le <code class="envar">PATH</code> est mauvais, cela pourrait
+            signifier que vous n'êtes pas connecté en tant qu'utilisateur
+            <code class="systemitem">lfs</code> ou que quelque chose s'est
+            mal passé dans <a class="xref" href=
+            "../chapter04/settingenvironment.html" title=
+            "4.4.&nbsp;Configurer l'environnement">Section&nbsp;4.4,
+            «&nbsp;Configurer l'environnement.&nbsp;»</a>.
+          </p>
+          <p>
+            Une fois que tout va bien, nettoyez les fichiers de test&nbsp;:
+          </p>
+          <pre class="userinput"><kbd class=
+          "command">rm -v dummy.c a.out</kbd></pre>
+        </div>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <p>
+          Les détails sur ce paquet sont situés dans <a class="xref" href=
+          "../chapter06/gcc.html#contents-gcc" title=
+          "6.17.2.&nbsp;Contenu de GCC">Section&nbsp;6.17.2, «&nbsp;Contenu
+          de GCC.&nbsp;»</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils-pass2.html" title=
+          "Binutils-2.27 - Passe 2">Précédent</a>
+          <p>
+            Binutils-2.27 - Passe 2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tcl.html" title="Tcl-core-8.6.6">Suivant</a>
+          <p>
+            Tcl-core-8.6.6
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

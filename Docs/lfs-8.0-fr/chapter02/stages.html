@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.3.&nbsp;Les étapes de la construction de LFS
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;2.&nbsp;Préparation du système hôte
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title=
+          "Prérequis du système hôte">Précédent</a>
+          <p>
+            Prérequis du système hôte
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "Créer une nouvelle partition">Suivant</a>
+          <p>
+            Créer une nouvelle partition
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "Chapitre&nbsp;2.&nbsp;Préparation du système hôte">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="stages" name="stages"></a>2.3. Les étapes de la construction
+        de LFS
+      </h1>
+      <p>
+        LFS est conçu pour être construit en une session. C’est-à-dire que
+        les instructions supposent que le système ne sera pas éteint pendant
+        la construction. Cela ne signifie pas que le système doit être
+        construit d’une traite. Le problème est que certaines procédures
+        doivent être relancées après un redémarrage si vous continuez LFS à
+        différents endroits.
+      </p>
+      <div class="sect2" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          2.3.1. Chapitres 1 à 4
+        </h2>
+        <p>
+          Ces chapitres se déroulent sur le système hôte. Si vous redémarrez,
+          soyez vigilants :
+        </p>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                Les procédures effectuées en tant que root après la Section
+                2.4 ont besoin que la variable d’environnement LFS soit
+                définie <span class="emphasis"><em>POUR L’UTILISATEUR
+                ROOT</em></span>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          2.3.2. Chapitre 5
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                La partition /mnt/lfs doit être montée.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <span class="emphasis"><em>TOUTES</em></span> les
+                instructions du Chapitre 5 doivent être lancées par
+                l’utilisateur <span class="emphasis"><em>lfs</em></span>.
+                Vous devez lancer <span class="command"><strong>su -
+                lfs</strong></span> avant toute action du Chapitre 5.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Les procédures de <a class="xref" href=
+                "../chapter05/generalinstructions.html" title=
+                "5.3.&nbsp;Instructions générales de compilation">Section&nbsp;5.3,
+                «&nbsp;Instructions générales de compilation&nbsp;»</a> sont
+                critiques. Si vous avez le moindre doute sur l’installation
+                d’un paquet, assurez-vous d’avoir supprimé toute archive
+                décompressée, extrayez de nouveau les fichiers du paquet et
+                lancez les instructions de cette section.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect2" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          2.3.3. Chapitres 6 à 8
+        </h2>
+        <div class="itemizedlist">
+          <ul>
+            <li class="listitem">
+              <p>
+                La partition /mnt/lfs doit être montée.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                En entrant dans l’environnement chroot, la variable
+                d’environnement LFS doit être définie pour l’utilisateur
+                root. La variable LFS n’est pas utilisée autrement.
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Les systèmes de fichier virtuels doivent être montés. Ceci
+                peut se faire avant ou après être entré dans l’environnement
+                chroot en changeant de terminal dans le système hôte et, en
+                root, en lançant les commandes de <a class="xref" href=
+                "../chapter06/kernfs.html#ch-system-bindmount" title=
+                "6.2.2.&nbsp;Monter et peupler /dev">Section&nbsp;6.2.2,
+                «&nbsp;Monter et peupler /dev&nbsp;»</a> et <a class="xref"
+                href="../chapter06/kernfs.html#ch-system-kernfsmount" title=
+                "6.2.3.&nbsp;Monter les systèmes de fichiers virtuels du noyau">
+                Section&nbsp;6.2.3, «&nbsp;Monter les systèmes de fichiers
+                virtuels du noyau&nbsp;»</a>.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostreqs.html" title=
+          "Prérequis du système hôte">Précédent</a>
+          <p>
+            Prérequis du système hôte
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingpartition.html" title=
+          "Créer une nouvelle partition">Suivant</a>
+          <p>
+            Créer une nouvelle partition
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "Chapitre&nbsp;2.&nbsp;Préparation du système hôte">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

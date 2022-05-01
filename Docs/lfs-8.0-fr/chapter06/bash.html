@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.33.&nbsp;Bash-4.4
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readline.html" title=
+          "Readline-7.0">Précédent</a>
+          <p>
+            Readline-7.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bc.html" title="Bc-1.06.95">Suivant</a>
+          <p>
+            Bc-1.06.95
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-bash" name="ch-system-bash"></a>6.33. Bash-4.4
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Bash contient le shell Bourne-Again.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">1.7 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">56 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          6.33.1. Installation de Bash
+        </h2>
+        <p>
+          Inclusion de quelques correctifs&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">patch -Np1 -i ../bash-4.4-upstream_fixes-1.patch</kbd></pre>
+        <p>
+          Préparez la compilation de Bash&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr                       \
+            --docdir=/usr/share/doc/bash-4.4 \
+            --without-bash-malloc               \
+            --with-installed-readline</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification de la nouvelle option de
+            configure&nbsp;:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-installed-readline</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Ce commutateur indique à Bash d'utiliser la bibliothèque
+                <code class="filename">readline</code> sur le système plutôt
+                que d'utiliser sa propre version de readline.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Sautez à <span class="quote">«&nbsp;<span class=
+          "quote">Installation du paquet</span>&nbsp;»</span> si vous
+          n'exécutez pas la suite de test.
+        </p>
+        <p>
+          Pour préparer les tests, assurez-vous que l'utilisateur
+          <code class="systemitem">nobody</code> peut écrire dans
+          l'arborescence des sources&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chown -Rv nobody .</kbd></pre>
+        <p>
+          Maintenant, lancez les tests en tant qu'utilisateur <code class=
+          "systemitem">nobody</code>&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">su nobody -s /bin/bash -c "PATH=$PATH make tests"</kbd></pre>
+        <p>
+          Installez le paquet et déplacez l'exécutable dans <code class=
+          "filename">/bin</code>:
+        </p>
+        <pre class="userinput"><kbd class="command">make install
+mv -vf /usr/bin/bash /bin</kbd></pre>
+        <p>
+          Lancez le programme <span class=
+          "command"><strong>bash</strong></span> nouvellement compilé (en
+          remplaçant celui en cours d'exécution)&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">exec /bin/bash --login +h</kbd></pre>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Les paramètres utilisés font que <span class=
+            "command"><strong>bash</strong></span> lance un shell de
+            connexion interactif et désactive le hachage, de façon à ce que
+            les nouveaux programme soient découverts au fur et à mesure de
+            leur disponibilité.
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          <a id="contents-bash" name="contents-bash"></a>6.33.2. Contenu de
+          Bash
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Programmes installés:</strong>
+              <span class="segbody">bash, bashbug et sh (lien vers
+              bash)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Répertoire installé:</strong>
+              <span class="segbody">/usr/share/doc/bash-4.4</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Descriptions courtes
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bash" name="bash"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bash</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Un interpréteur de commandes largement utilisé&nbsp;; il
+                    réalise un grand nombre d'expansions et de substitutions
+                    sur une ligne de commande donnée avant de l'exécuter,
+                    rendant cet interpréteur très puissant
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bashbug" name="bashbug"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bashbug</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Un script shell pour aider l'utilisateur à composer et à
+                    envoyer des courriers électroniques contenant des
+                    rapports de bogues spécialement formatés concernant
+                    <span class="command"><strong>bash</strong></span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sh" name="sh"></a><span class="term"><span class=
+                    "command"><strong>sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Un lien symbolique vers le programme <span class=
+                    "command"><strong>bash</strong></span>&nbsp;; à son appel
+                    en tant que <span class=
+                    "command"><strong>sh</strong></span>, <span class=
+                    "command"><strong>bash</strong></span> essaie de copier
+                    le comportement initial des versions historiques de
+                    <span class="command"><strong>sh</strong></span> aussi
+                    fidèlement que possible, tout en se conformant aussi au
+                    standard POSIX
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readline.html" title=
+          "Readline-7.0">Précédent</a>
+          <p>
+            Readline-7.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bc.html" title="Bc-1.06.95">Suivant</a>
+          <p>
+            Bc-1.06.95
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

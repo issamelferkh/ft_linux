@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.5.&nbsp;Créer les répertoires
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title=
+          "Entrer dans l'environnement chroot">Précédent</a>
+          <p>
+            Entrer dans l'environnement chroot
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "Créer les fichiers et les liens symboliques essentiels">Suivant</a>
+          <p>
+            Créer les fichiers et les liens symboliques essentiels
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-creatingdirs" name="ch-system-creatingdirs"></a>6.5.
+        Créer les répertoires
+      </h1>
+      <p>
+        Il est temps de créer la hiérarchie de répertoires sur le système de
+        fichiers LFS. Créez une hiérarchie de répertoires standards en
+        lançant les commandes suivantes&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">mkdir -pv /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}
+install -dv -m 0750 /root
+install -dv -m 1777 /tmp /var/tmp
+mkdir -pv /usr/{,local/}{bin,include,lib,sbin,src}
+mkdir -pv /usr/{,local/}share/{color,dict,doc,info,locale,man}
+mkdir -v  /usr/{,local/}share/{misc,terminfo,zoneinfo}
+mkdir -v  /usr/libexec
+mkdir -pv /usr/{,local/}share/man/man{1..8}
+
+case $(uname -m) in
+ x86_64) mkdir -v /lib64 ;;
+esac
+
+mkdir -v /var/{log,mail,spool}
+ln -sv /run /var/run
+ln -sv /run/lock /var/lock
+mkdir -pv /var/{opt,cache,lib/{color,misc,locate},local}</kbd></pre>
+      <p>
+        Par défaut, les répertoires sont créés avec les droits 755, ce qui
+        n'est pas souhaitable pour tous les répertoires. Dans la commande
+        ci-dessus, deux modifications seront effectuées—une pour le
+        répertoire principal de <code class="systemitem">root</code>, et une
+        autre pour les répertoires des fichiers temporaires.
+      </p>
+      <p>
+        Le premier changement de droit nous assure que n'importe qui ne
+        pourra pas entrer dans le répertoire <code class=
+        "filename">/root</code>—de façon identique à ce que ferait un
+        utilisateur pour son répertoire principal. Le deuxième changement
+        assure que tout utilisateur peut écrire dans les répertoires
+        <code class="filename">/tmp</code> et <code class=
+        "filename">/var/tmp</code>, mais ne peut pas supprimer les fichiers
+        des autres utilisateurs. Cette dernière interdiction est due au
+        <span class="quote">«&nbsp;<span class="quote">sticky
+        bit</span>&nbsp;»</span>, le bit (1) le plus haut dans le masque
+        1777.
+      </p>
+      <div class="sect2" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          6.5.1. Remarques à propos de la conformité FHS
+        </h2>
+        <p>
+          L'arborescence de répertoires est basée sur le standard FHS
+          <span class="foreignphrase"><em class="foreignphrase">Filesystem
+          Hierarchy Standard</em></span>, (disponible sur <a class="ulink"
+          href=
+          "https://wiki.linuxfoundation.org/en/FHS">https://wiki.linuxfoundation.org/en/FHS</a>).
+          Le FHS stipule aussi l'existence de quelques répertoires comme
+          <code class="filename">/usr/local/games</code> et <code class=
+          "filename">/usr/share/games</code>. Nous créons seulement les
+          répertoires nécessaires. Néanmoins, n'hésitez pas à créer ces
+          répertoires.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title=
+          "Entrer dans l'environnement chroot">Précédent</a>
+          <p>
+            Entrer dans l'environnement chroot
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "Créer les fichiers et les liens symboliques essentiels">Suivant</a>
+          <p>
+            Créer les fichiers et les liens symboliques essentiels
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

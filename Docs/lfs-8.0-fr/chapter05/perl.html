@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.30.&nbsp;Perl-5.24.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;5.&nbsp;Construire un système temporaire
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title=
+          "Patch-2.7.5">Précédent</a>
+          <p>
+            Patch-2.7.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.4">Suivant</a>
+          <p>
+            Sed-4.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-tools-perl" name="ch-tools-perl"></a>5.30. Perl-5.24.1
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Perl contient le langage pratique d'extraction et de
+          rapport (<span class="foreignphrase"><em class=
+          "foreignphrase">Practical Extraction and Report
+          Language</em></span>).
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">1.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">249 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          5.30.1. Installation de Perl
+        </h2>
+        <p>
+          Préparez la compilation de Perl&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sh Configure -des -Dprefix=/tools -Dlibs=-lm</kbd></pre>
+        <p>
+          Construisez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Bien que Perl soit fourni avec une suite de tests, il vaudrait
+          mieux attendre qu'il soit installé au prochain chapitre.
+        </p>
+        <p>
+          Seuls quelques outils et quelques bibliothèques doivent être
+          installés pour l'instant&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">cp -v perl cpan/podlators/scripts/pod2man /tools/bin
+mkdir -pv /tools/lib/perl5/5.24.1
+cp -Rv lib/* /tools/lib/perl5/5.24.1</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <p>
+          Les détails sur ce paquet sont disponibles dans <a class="xref"
+          href="../chapter06/perl.html#contents-perl" title=
+          "6.40.2.&nbsp;Contenu de Perl">Section&nbsp;6.40.2, «&nbsp;Contenu
+          de Perl.&nbsp;»</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="patch.html" title=
+          "Patch-2.7.5">Précédent</a>
+          <p>
+            Patch-2.7.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.4">Suivant</a>
+          <p>
+            Sed-4.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

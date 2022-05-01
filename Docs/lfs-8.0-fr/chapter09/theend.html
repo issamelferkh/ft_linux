@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.1.&nbsp;Fin
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;9.&nbsp;Fin
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter09.html" title="Fin">Précédent</a>
+          <p>
+            Fin
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title=
+          "Enregistrez-vous">Suivant</a>
+          <p>
+            Enregistrez-vous
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapitre&nbsp;9.&nbsp;Fin">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-finish-theend" name="ch-finish-theend"></a>9.1. Fin
+      </h1>
+      <p>
+        Bien joué&nbsp;! Le nouveau système LFS est installé&nbsp;! Nous vous
+        souhaitons de bien vous amuser avec votre tout nouveau système Linux
+        fabriqué sur mesure.
+      </p>
+      <p>
+        Il est recommandé de créer le fichier <code class=
+        "filename">/etc/lfs-release</code>. Avec ce fichier, il vous est très
+        facile (ainsi que pour nous si vous avez besoin de demander de
+        l'aide) de savoir quelle version de LFS vous avez installé sur votre
+        système. Créez ce fichier en lançant&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">echo 8.0 &gt; /etc/lfs-release</kbd></pre>
+      <p>
+        C'est aussi une bonne idée de créer un fichier pour afficher l'état
+        de votre nouveau système, en respectant la Linux Standards Base
+        (LSB). Pour créer ce fichier, lancez&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">cat &gt; /etc/lsb-release &lt;&lt; "EOF"
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="8.0"
+DISTRIB_CODENAME="&lt;votre nom ici&gt;"
+DISTRIB_DESCRIPTION="Linux From Scratch"
+EOF</kbd></pre>
+      <p>
+        Assurez-vous de personnaliser le champ 'DISTRIB_CODENAME' pour que ce
+        système ne soit que le vôtre.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chapter09.html" title="Fin">Précédent</a>
+          <p>
+            Fin
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="getcounted.html" title=
+          "Enregistrez-vous">Suivant</a>
+          <p>
+            Enregistrez-vous
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapitre&nbsp;9.&nbsp;Fin">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

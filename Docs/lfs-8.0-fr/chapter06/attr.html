@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.21.&nbsp;Attr-2.4.47
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title=
+          "Ncurses-6.0">Précédent</a>
+          <p>
+            Ncurses-6.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="acl.html" title="Acl-2.2.52">Suivant</a>
+          <p>
+            Acl-2.2.52
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-attr" name="ch-system-attr"></a>6.21. Attr-2.4.47
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet attr contient les outils d'administration des attributs o
+          des objets du système de fichier étendu.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">moins de 0.1
+              SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">3.3 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          6.21.1. Installation d'Attr
+        </h2>
+        <p>
+          Modifiez le répertoire de la documentation pour qu'elle aille dans
+          un répertoire versionné&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed -i -e 's|/@pkg_name@|&amp;-@pkg_version@|' include/builddefs.in</kbd></pre>
+        <p>
+          Empêche l'instalation de pages de manuel qui sont déjà installées
+          par le paquet <a class="xref" href=
+          "man-pages.html#man-pages"><code class="filename">pages
+          man</code></a>&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile</kbd></pre>
+        <p>
+          Préparez la compilation d'Attr&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr \
+            --bindir=/bin \
+            --disable-static</kbd></pre>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Il faut lancer les tests sur un système de fichiers supportant les
+          attributs étendus, comme les systèmes de fichiers ext2, ext3, ou
+          ext4. On sait que les tests échouent aussi si on en exécute
+          plusieurs à la fois (avec une option -j supérieur à 1). Pour tester
+          les résultats, lancez&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make -j1 tests root-tests</kbd></pre>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">make install install-dev install-lib
+chmod -v 755 /usr/lib/libattr.so</kbd></pre>
+        <p>
+          Il faut supprimer la bibliothèque partagée de <code class=
+          "filename">/lib</code>, et donc, recréer le fichier <code class=
+          "filename">.so</code> dans <code class=
+          "filename">/usr/lib</code>&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">mv -v /usr/lib/libattr.so.* /lib
+ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          <a id="contents-attr" name="contents-attr"></a>6.21.2. Contenu
+          d'Attr
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Programmes installés:</strong>
+              <span class="segbody">attr, getfattr et setattr</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Bibliothèque installée:</strong>
+              <span class="segbody">libattr.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Répertoires installés:</strong>
+              <span class="segbody">/usr/include/attr et
+              /usr/share/doc/attr-2.4.47</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Descriptions courtes
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="attr" name="attr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>attr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Etend les attributs étendus des objets d'un système de
+                    fichiers
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getfattr" name="getfattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getfattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Affiche les attributs étendus des objets d'un système de
+                    fichiers
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setattr" name="setattr"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setattr</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Définit les attributs étendus des objets d'un système de
+                    fichiers
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libattr" name="libattr"></a><span class=
+                    "term"><code class="filename">libattr</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contient la bibliothèque de fonction pour la manipulation
+                    des attributs étendu
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title=
+          "Ncurses-6.0">Précédent</a>
+          <p>
+            Ncurses-6.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="acl.html" title="Acl-2.2.52">Suivant</a>
+          <p>
+            Acl-2.2.52
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

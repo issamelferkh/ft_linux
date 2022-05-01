@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.73.&nbsp;Nettoyer
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="strippingagain.html" title=
+          "Supprimer de nouveau les symboles des fichiers objets">Précédent</a>
+          <p>
+            Supprimer de nouveau les symboles des fichiers objets
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "Configuration du système">Suivant</a>
+          <p>
+            Configuration du système
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-revisedchroot" name=
+        "ch-system-revisedchroot"></a>6.73. Nettoyer
+      </h1>
+      <p>
+        Enfin, nettoyez des fichiers résultant des tests&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">rm -rf /tmp/*</kbd></pre>
+      <p>
+        À partir de maintenant, en rentrant dans l'environnement chroot après
+        l'avoir quitté, utilisez la commande chroot modifiée suivante&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">chroot "$LFS" /usr/bin/env -i              \
+    HOME=/root TERM="$TERM" PS1='\u:\w\$ ' \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin     \
+    /bin/bash --login</kbd></pre>
+      <p>
+        La raison en est que les programmes de <code class=
+        "filename">/tools</code> ne sont plus nécessaires. Comme ils ne sont
+        plus utiles, vous pouvez supprimer le répertoire <code class=
+        "filename">/tools</code> si vous le voulez.
+      </p>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          Effacer aussi de <code class="filename">/tools</code> les copies
+          temporaires de Tcl, Expect et DejaGnu, qui ont été utilisées pour
+          lancer les tests de l'ensemble des outils. Si vous avez besoin de
+          ces programmes plus tard, vous devrez les recompiler et les
+          ré-installer. Le livre BLFS a les bonnes instructions pour le faire
+          (voir <a class="ulink" href=
+          "http://www.fr.linuxfromscratch.org/view/blfs-">http://www.fr.linuxfromscratch.org/view/blfs-</a>).
+        </p>
+      </div>
+      <p>
+        Si les systèmes de fichiers virtuel du noyau ont été démontés,
+        manuellement ou suite à un redémarrage, assurez-vous que les systèmes
+        de fichiers virtuels du noyau seront montés lorsque vous entrerez à
+        nouveau dans le chroot. On a expliqué cette procédure dans <a class=
+        "xref" href="kernfs.html#ch-system-bindmount" title=
+        "6.2.2.&nbsp;Monter et peupler /dev">Section&nbsp;6.2.2,
+        «&nbsp;Monter et peupler /dev&nbsp;»</a> et <a class="xref" href=
+        "kernfs.html#ch-system-kernfsmount" title=
+        "6.2.3.&nbsp;Monter les systèmes de fichiers virtuels du noyau">Section&nbsp;6.2.3,
+        «&nbsp;Monter les systèmes de fichiers virtuels du noyau&nbsp;»</a>.
+      </p>
+      <p>
+        Finalement, de nombreuses bibliothèques statiques n'ont pas été
+        supprimées précédemment dans le chapitre dans le but de satisfaire
+        les tests de régression de plusieurs paquets. Ces bibliothèques
+        proviennent de binutils, bzip2, e2fsprogs, flex, libtool et zlib. Si
+        désiré, supprimez-les maintenant&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">rm -f /usr/lib/lib{bfd,opcodes}.a
+rm -f /usr/lib/libbz2.a
+rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+rm -f /usr/lib/libltdl.a
+rm -f /usr/lib/libfl.a
+rm -f /usr/lib/libfl_pic.a
+rm -f /usr/lib/libz.a</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="strippingagain.html" title=
+          "Supprimer de nouveau les symboles des fichiers objets">Précédent</a>
+          <p>
+            Supprimer de nouveau les symboles des fichiers objets
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter07/chapter07.html" title=
+          "Configuration du système">Suivant</a>
+          <p>
+            Configuration du système
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

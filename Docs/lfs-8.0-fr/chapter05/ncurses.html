@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.15.&nbsp;Ncurses-6.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;5.&nbsp;Construire un système temporaire
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="check.html" title=
+          "Check-0.11.0">Précédent</a>
+          <p>
+            Check-0.11.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bash.html" title="Bash-4.4">Suivant</a>
+          <p>
+            Bash-4.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-tools-ncurses" name="ch-tools-ncurses"></a>5.15.
+        Ncurses-6.0
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Ncurses contient les bibliothèques de gestion des écrans
+          type caractère, indépendant des terminaux.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">0.5 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">38 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          5.15.1. Installation de Ncurses
+        </h2>
+        <p>
+          Tout d'abord, assurez-vous que <span class=
+          "command"><strong>gawk</strong></span> est trouvé pendant la
+          configuration&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">sed -i s/mawk// configure</kbd></pre>
+        <p>
+          Préparez la compilation de Ncurses&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/tools \
+            --with-shared   \
+            --without-debug \
+            --without-ada   \
+            --enable-widec  \
+            --enable-overwrite</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification des options de
+            configure&nbsp;:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-ada</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Ceci nous assure que Ncurses ne construira pas le support du
+                compilateur Ada qui pourrait être présent sur l'hôte mais qui
+                ne sera pas disponible lorsque nous entrerons dans
+                l'environnement <span class=
+                "command"><strong>chroot</strong></span>.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-overwrite</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Ceci indique à Ncurses d'installer les fichiers d'en-tête
+                dans <code class="filename">/tools/include</code>, au lieu de
+                <code class="filename">/tools/include/ncurses</code>, pour
+                s'assurer que les autres paquets trouveront bien les en-têtes
+                de Ncurses.
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-widec</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Ce paramètre fait en sorte que les bibliothèques
+                wide-character (à savoir <code class=
+                "filename">libncursesw.so.6.0</code>) se construisent à la
+                place de celles normales (comme <code class=
+                "filename">libncurses.so.6.0</code>). On peut utiliser ces
+                bibliothèques wide-character dans des locales multibyte et 8
+                bits traditionnelles, tandis que les bibliothèques normales
+                ne fonctionnent bien qu'avec la locale 8 bits. Les
+                bibliothèques wide-character et normales ont des sources
+                compatibles, mais pas des binaires compatibles.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Ce paquet a une suite de tests mais elle ne peut être lancée
+          qu'après que le paquet ait été installé. Les tests se trouvent dans
+          le répertoire <code class="filename">test/</code>. Voir le fichier
+          <code class="filename">README</code> de ce répertoire pour plus de
+          détails.
+        </p>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <p>
+          Les détails sur ce paquet sont disponibles dans <a class="xref"
+          href="../chapter06/ncurses.html#contents-ncurses" title=
+          "6.20.2.&nbsp;Contenu de Ncurses">Section&nbsp;6.20.2,
+          «&nbsp;Contenu de Ncurses.&nbsp;»</a>
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="check.html" title=
+          "Check-0.11.0">Précédent</a>
+          <p>
+            Check-0.11.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bash.html" title="Bash-4.4">Suivant</a>
+          <p>
+            Bash-4.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "Chapitre&nbsp;5.&nbsp;Construire un système temporaire">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

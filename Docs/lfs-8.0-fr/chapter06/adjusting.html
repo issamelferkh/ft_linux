@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.10.&nbsp;Ajustement de la chaîne d'outils
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.25">Précédent</a>
+          <p>
+            Glibc-2.25
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zlib.html" title="Zlib-1.2.11">Suivant</a>
+          <p>
+            Zlib-1.2.11
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-adjusting" name="ch-system-adjusting"></a>6.10.
+        Ajustement de la chaîne d'outils
+      </h1>
+      <p>
+        Maintenant que les bibliothèques C finales ont été installées, il est
+        temps d'ajuster la chaîne d'outils pour qu'elle lie tout programme
+        nouvellement compilé à ces nouvelles bibliothèques.
+      </p>
+      <p>
+        D'abord, sauvegardez l'éditeur de liens de <code class=
+        "filename">/tools</code>, et remplacez-le par l'éditeur de lien
+        ajusté que nous avons fait au chapitre 5. Nous créerons aussi un lien
+        vers son équivalent dans <code class="filename">/tools/$(uname
+        -m)-pc-linux-gnu/bin</code>&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">mv -v /tools/bin/{ld,ld-old}
+mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
+mv -v /tools/bin/{ld-new,ld}
+ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</kbd></pre>
+      <p>
+        Puis, modifiez le fichier des specs GCC afin qu'il pointe vers le
+        nouvel éditeur de liens dynamiques. La suppression simple de tous les
+        exemples de <span class="quote">«&nbsp;<span class=
+        "quote">/tools</span>&nbsp;»</span> devrait nous laisser uniquement
+        le bon chemin sur l'éditeur de liens dynamique. Ajustez aussi le
+        fichier de specs pour que GCC sache où trouver les en-têtes corrects
+        et les fichiers de démarrage de Glibc. Une commande <span class=
+        "command"><strong>sed</strong></span> fait cela&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">gcc -dumpspecs | sed -e 's@/tools@@g'                   \
+    -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
+    -e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' &gt;      \
+    `dirname $(gcc --print-libgcc-file-name)`/specs</kbd></pre>
+      <p>
+        C'est une bonne idée d'examiner visuellement le fichier de specs pour
+        vérifier que le changement voulu a bien été effectué.
+      </p>
+      <p>
+        Il est impératif à ce moment d'arrêter et de vous assurer que les
+        fonctions basiques (compilation et édition des liens) de l'ensemble
+        des outils ajusté fonctionnent comme attendu. Pour cela, réalisez une
+        petite vérification&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">echo 'int main(){}' &gt; dummy.c
+cc dummy.c -v -Wl,--verbose &amp;&gt; dummy.log
+readelf -l a.out | grep ': /lib'</kbd></pre>
+      <p>
+        Il ne devrait pas y avoir d'erreur et la sortie de la commande sera
+        (avec des différences spécifiques aux plateformes dans le nom de
+        l'éditeur de liens)&nbsp;:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</code></pre>
+      <p>
+        Remarquez que sur un système 64 bits<code class=
+        "filename">/lib</code> est l'emplacement de notre éditeur de liens,
+        mais il est accessible via un lien symbolique dans /lib64.
+      </p>
+      <div class="admon note">
+        <img alt="[Note]" src="../images/note.png" />
+        <h3>
+          Note
+        </h3>
+        <p>
+          Sur les systèmes 32-bit, l’interpréteur devrait être
+          /lib/ld-linux.so.2.
+        </p>
+      </div>
+      <p>
+        Maintenant, assurez-vous que nous utilisons les bons fichiers de
+        démarrage&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log</kbd></pre>
+      <p>
+        La sortie de la dernière commande sera&nbsp;:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">/usr/lib/../lib/crt1.o succeeded
+/usr/lib/../lib/crti.o succeeded
+/usr/lib/../lib/crtn.o succeeded</code></pre>
+      <p>
+        Vérifiez que le compilateur cherche les bons fichiers
+        d'en-têtes&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">grep -B1 '^ /usr/include' dummy.log</kbd></pre>
+      <p>
+        Cette commande devrait afficher la sortie suivante&nbsp;:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">#include &lt;...&gt; search starts here:
+ /usr/include</code></pre>
+      <p>
+        Puis, vérifiez que le nouvel éditeur de liens est utilisé avec les
+        bons chemins de recherche&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'</kbd></pre>
+      <p>
+        Les références vers des localisations qui ont des composants avec
+        '-linux-gnu' doivent être ignorées, sinon la sortie de la dernière
+        commande doit être&nbsp;:
+      </p>
+      <pre class="screen"><code class="computeroutput">SEARCH_DIR("/usr/lib")
+SEARCH_DIR("/lib")</code></pre>
+      <p>
+        Ensuite, assurez-vous que nous utilisons la bonne libc&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">grep "/lib.*/libc.so.6 " dummy.log</kbd></pre>
+      <p>
+        La sortie de la dernière commande sera&nbsp;:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">attempt to open /lib/libc.so.6 succeeded</code></pre>
+      <p>
+        Pour finir, assurez-vous que GCC utilise le bon éditeur de liens
+        dynamiques&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">grep found dummy.log</kbd></pre>
+      <p>
+        La sortie de la dernière commande devrait être (avec des différences
+        spécifiques aux plateformes dans le nom de l'éditeur de liens)&nbsp;:
+      </p>
+      <pre class="screen"><code class=
+      "computeroutput">found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2</code></pre>
+      <p>
+        Si la sortie n'apparaît pas comme montré ci-dessus ou qu'elle
+        n'apparaît pas du tout, alors quelque chose ne va vraiment pas.
+        Enquêtez et retracez les étapes pour savoir d'où vient le problème et
+        comment le corriger. La raison la plus probable est que quelque chose
+        s'est mal passé lors de la modification du fichier specs ci-dessus.
+        Tout problème devra être résolu avant de continuer le processus.
+      </p>
+      <p>
+        Une fois que tout fonctionne correctement, nettoyez les fichiers
+        tests&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">rm -v dummy.c a.out dummy.log</kbd></pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="glibc.html" title="Glibc-2.25">Précédent</a>
+          <p>
+            Glibc-2.25
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="zlib.html" title="Zlib-1.2.11">Suivant</a>
+          <p>
+            Zlib-1.2.11
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

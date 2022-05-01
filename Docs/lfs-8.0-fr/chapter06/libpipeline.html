@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.60.&nbsp;Libpipeline-1.4.1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kbd.html" title="Kbd-2.0.4">Précédent</a>
+          <p>
+            Kbd-2.0.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="make.html" title="Make-4.2.1">Suivant</a>
+          <p>
+            Make-4.2.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-libpipeline" name="ch-system-libpipeline"></a>6.60.
+        Libpipeline-1.4.1
+      </h1>
+      <div class="package" lang="fr" xml:lang="fr">
+        <p>
+          Le paquet Libpipeline contient une bibliothèque pour manipuler des
+          pipelines (tuyaux) de sous-processus de façon flexible et commode.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Temps de construction
+              approximatif:</strong> <span class="segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Espace disque requis:</strong>
+              <span class="segbody">7.9 Mo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          6.60.1. Installation de Libpipeline
+        </h2>
+        <p>
+          Préparez la compilation de Libpipeline&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">PKG_CONFIG_PATH=/tools/lib/pkgconfig ./configure --prefix=/usr</kbd></pre>
+        <div class="variablelist">
+          <p class="title">
+            <strong>Voici la signification des options de
+            configure&nbsp;:</strong>
+          </p>
+          <dl class="variablelist">
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>PKG_CONFIG_PATH</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                Utilise pkg-config pour obtenir l'emplacement des métadonnées
+                de la bibliothèque de test construite dans <a class="xref"
+                href="../chapter05/check.html" title=
+                "5.14.&nbsp;Check-0.11.0">Section&nbsp;5.14,
+                «&nbsp;Check-0.11.0&nbsp;»</a>.
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compilez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          Pour tester les résultats, lancez&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          Installez le paquet&nbsp;:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+      </div>
+      <div class="content" lang="fr" xml:lang="fr">
+        <h2 class="sect2">
+          <a id="contents-libpipeline" name=
+          "contents-libpipeline"></a>6.60.2. Contenu de Libpipeline
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Bibliothèque installée:</strong>
+              <span class="segbody">libpipeline.so</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Descriptions courtes
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libpipeline" name="libpipeline"></a><span class=
+                    "term"><code class="filename">libpipeline</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Cette bibliothèque est utilisée pour construire de façon
+                    sécurisée des pipelines (tuyaux) entre des sous-processus
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kbd.html" title="Kbd-2.0.4">Précédent</a>
+          <p>
+            Kbd-2.0.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="make.html" title="Make-4.2.1">Suivant</a>
+          <p>
+            Make-4.2.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

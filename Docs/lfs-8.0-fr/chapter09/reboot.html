@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      9.3.&nbsp;Redémarrer le système
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;9.&nbsp;Fin
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "Enregistrez-vous">Précédent</a>
+          <p>
+            Enregistrez-vous
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title=
+          "Et maintenant&nbsp;?">Suivant</a>
+          <p>
+            Et maintenant&nbsp;?
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapitre&nbsp;9.&nbsp;Fin">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-finish-reboot" name="ch-finish-reboot"></a>9.3. Redémarrer
+        le système
+      </h1>
+      <p>
+        Maintenant que tous les logiciels ont été installés, il est temps de
+        redémarrer votre ordinateur. Néanmoins, vous devez savoir certaines
+        choses. Le système que vous avez créé dans ce livre est vraiment
+        minimaliste et a toutes les chances de ne pas avoir les
+        fonctionnalités dont vous aurez besoin pour continuer. En installant
+        quelques paquets supplémentaires à partir du livre BLFS en restant
+        dans l'environnement chroot actuel, vous serez dans une bien
+        meilleure position pour continuer une fois que vous aurez redémarré
+        votre nouvelle installation LFS. Voici quelques suggestions&nbsp;:
+      </p>
+      <div class="itemizedlist">
+        <ul>
+          <li class="listitem">
+            <p>
+              Un navigateur web en mode texte tel que <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/basicnet/lynx.html">
+              Lynx</a> vous permettra de lire facilement le livre BLFS dans
+              un terminal virtuel tout en construisant les paquets dans un
+              autre.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Le paquet <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/general/gpm.html">
+              GPM</a> vous permettra de réaliser des copier-coller dans vos
+              terminaux virtuels.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Si vous êtes dans une situation où la configuration IP statique
+              ne correspond pas à vos besoins en termes de réseau, installer
+              des paquets comme <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/basicnet/dhcpcd.html">
+              dhcpcd</a> ou la partie client de <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/basicnet/dhcp.html">
+              dhcp</a> peut être utile.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Installer <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/postlfs/sudo.html">
+              sudo</a> peut être utile pour construire des paquets en tant
+              qu'utilisateur non root et pour installer facilement les
+              paquets qui en résultent dans votre nouveau système.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Si vous voulez accéder à votre nouveau système depuis un
+              environnement graphique confortable, installez <a class="ulink"
+              href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/postlfs/openssh.html">
+              openssh</a> et son prérequis <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/postlfs/openssl.html">
+              openssl</a>.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Pour faciliter le rapatriement de fichiers par Internet,
+              installez <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/basicnet/wget.html">
+              wget</a>.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Si vous avez un ou plusieurs disques ayant une table de
+              partitions GUID (GPT), <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/postlfs/gptfdisk.html">
+              gptfdisk</a> ou <a class="ulink" href=
+              "http://www.fr.linuxfromscratch.org/view/blfs-8.0/postlfs/parted.html">
+              parted</a> seront utiles.
+            </p>
+          </li>
+          <li class="listitem">
+            <p>
+              Enfin, une relecture des fichiers de configuration suivants
+              s'impose aussi à ce moment.
+            </p>
+            <div class="itemizedlist">
+              <ul>
+                <li class="listitem">
+                  <p>
+                    /etc/bashrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/dircolors
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/fstab
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/hosts
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/inputrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/resolv.conf
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/vimrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bash_profile
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /root/.bashrc
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/sysconfig/network
+                  </p>
+                </li>
+                <li class="listitem">
+                  <p>
+                    /etc/sysconfig/ifconfig.eth0
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p>
+        Après cet intermède, démarrons notre toute nouvelle installation LFS
+        pour la première fois&nbsp;! Tout d'abord, quittez l'environnement
+        chroot&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">logout</kbd></pre>
+      <p>
+        Puis, démontez les systèmes de fichiers virtuels&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS/dev/pts
+umount -v $LFS/dev
+umount -v $LFS/run
+umount -v $LFS/proc
+umount -v $LFS/sys</kbd></pre>
+      <p>
+        Démontez le système de fichiers LFS lui-même&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS</kbd></pre>
+      <p>
+        Si plusieurs partitions ont été créées, démontez les autres
+        partitions avant de démonter la principale, comme ceci&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">umount -v $LFS/usr
+umount -v $LFS/home
+umount -v $LFS</kbd></pre>
+      <p>
+        Maintenant, redémarrez le système avec&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">shutdown -r now</kbd></pre>
+      <p>
+        En supposant que le chargeur de démarrage GRUB a été initialisé comme
+        indiqué plus tôt, le menu est prêt pour démarrer automatiquement
+        <span class="emphasis"><em>LFS 8.0</em></span>.
+      </p>
+      <p>
+        Quand le redémarrage est terminé, le système LFS est fonctionnel et
+        davantage de logiciels peuvent être installés pour satisfaire vos
+        besoins.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="getcounted.html" title=
+          "Enregistrez-vous">Précédent</a>
+          <p>
+            Enregistrez-vous
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatnow.html" title=
+          "Et maintenant&nbsp;?">Suivant</a>
+          <p>
+            Et maintenant&nbsp;?
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter09.html" title=
+          "Chapitre&nbsp;9.&nbsp;Fin">Niveau supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

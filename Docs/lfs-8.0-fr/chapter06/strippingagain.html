@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.72.&nbsp;Supprimer de nouveau les symboles des fichiers objets
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="lfs" id="lfs-8.0">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 8.0
+      </h4>
+      <h3>
+        Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title=
+          "À propos des symboles de débogage">Précédent</a>
+          <p>
+            À propos des symboles de débogage
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title=
+          "Nettoyer">Suivant</a>
+          <p>
+            Nettoyer
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="fr" xml:lang="fr">
+      <h1 class="sect1">
+        <a id="ch-system-strippingagain" name=
+        "ch-system-strippingagain"></a>6.72. Supprimer de nouveau les
+        symboles des fichiers objets
+      </h1>
+      <p>
+        Si l'utilisateur initial n'est pas un développeur et ne pense pas
+        faire de débogage sur les logiciels du système, la taille du système
+        peut être diminué d'environ 200&nbsp;Mo en supprimant les symboles de
+        débogage contenus dans les binaires et dans les bibliothèques. Ceci
+        ne pose pas de problème autre que le fait de ne plus pouvoir les
+        déboguer.
+      </p>
+      <p>
+        La plupart des personnes qui utilisent la commande mentionnée
+        ci-dessous ne rencontrent aucune difficulté. Néanmoins, il est facile
+        de faire une erreur de saisie et rendre le nouveau système
+        complètement inutilisable, donc avant d'exécuter la commande
+        <span class="command"><strong>strip</strong></span>, il est
+        recommandé de faire une sauvegarde de l'état actuel.
+      </p>
+      <p>
+        Avant d'exécuter la suppression de ces symboles, faites
+        particulièrement attention qu'aucun des binaires concernés ne sont en
+        cours d'exécution. Si vous n'êtes pas sûr que l'utilisateur est entré
+        dans chroot avec la commande donnée dans <a class="xref" href=
+        "chroot.html" title=
+        "6.4.&nbsp;Entrer dans l'environnement chroot">Section&nbsp;6.4,
+        «&nbsp;Entrer dans l'environnement chroot,&nbsp;»</a> quittez le
+        chroot&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class="command">logout</kbd></pre>
+      <p>
+        Puis, retournez-y avec&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">chroot $LFS /tools/bin/env -i \
+    HOME=/root TERM=$TERM PS1='\u:\w\$ ' \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    /tools/bin/bash --login</kbd></pre>
+      <p>
+        Maintenant, les binaires et les bibliothèques peuvent être traitées
+        en toute sécurité&nbsp;:
+      </p>
+      <pre class="userinput"><kbd class=
+      "command">/tools/bin/find /usr/lib -type f -name \*.a \
+   -exec /tools/bin/strip --strip-debug {} ';'
+
+/tools/bin/find /lib /usr/lib -type f -name \*.so* \
+   -exec /tools/bin/strip --strip-unneeded {} ';'
+
+/tools/bin/find /{bin,sbin} /usr/{bin,sbin,libexec} -type f \
+    -exec /tools/bin/strip --strip-all {} ';'</kbd></pre>
+      <p>
+        Un grand nombre de fichiers seront rapportés comme ayant un format
+        non reconnu. Ces messages d'avertissement indiquent que ces fichiers
+        sont des scripts et non pas des binaires.
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="aboutdebug.html" title=
+          "À propos des symboles de débogage">Précédent</a>
+          <p>
+            À propos des symboles de débogage
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="revisedchroot.html" title=
+          "Nettoyer">Suivant</a>
+          <p>
+            Nettoyer
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapitre&nbsp;6.&nbsp;Installer les logiciels du système de base">Niveau
+          supérieur</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 8.0 ">Sommaire</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
