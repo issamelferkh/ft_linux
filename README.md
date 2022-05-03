@@ -8,6 +8,8 @@ Buiild a basic, but functional linux distribution.
 - Connect to the Internet
 
 ## Helps
+- How to build your own Linux OS on a USB with Linux From Scratch 11.1: https://www.youtube.com/playlist?list=PLyc5xVO2uDsCCsisiiWrZJgnHmK18Mr7j
+
 Linux Device Drivers
 LDD Book: https://lwn.net/Kernel/LDD3/
 LDD3 Example Code Updated: https://github.com/martinezjavier/ldd3
